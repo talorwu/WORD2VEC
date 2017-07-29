@@ -1,0 +1,10 @@
+关于详细的word2vec参看http://blog.csdn.net/itplus/article/details/37998797
+我总结几点：
+1.两种模型CBOW和Skip-gram,前者利用上下文估计中间值，后者利用中间值估计上下文
+2.以skip-gram理解：
+    其实就是一个softmax回归！
+    目标函数L = -log(P(w(c-m),...w(c-1),w(c+1),...w(c+m)|w(c))))
+              = -log(连乘(P(w(c-m+j)|w(c))))
+    如果不考虑任何优化，P(w(c-m+j)|w(c)))上就是一个softmax，这复杂度太高，因此引入hierarchical softmax
+    另一种是不考虑全部样本，直接负采样一些样本来用（一般来说采样单词出现的次数多的）
+3.这与平时的softmax有点区别，在于输入也是可变的，需要求的量，因此是参数和输入螺旋上升的
